@@ -336,6 +336,8 @@ spec:
       managementState: Managed
     workbenches:
       managementState: Managed
+    autopilot:
+      managementState: Managed
 ```
 
 2. Enable only Dashboard and Workbenches

@@ -54,6 +54,7 @@ _Appears in:_
 - [TrainingOperator](#trainingoperator)
 - [TrustyAI](#trustyai)
 - [Workbenches](#workbenches)
+- [Autopilot](#autopilot)
 
 | Field | Description | Default | Validation |
 | --- | --- | --- | --- |
@@ -301,6 +302,28 @@ _Appears in:_
 | `Component` _[Component](#component)_ |  |  |  |
 
 
+## datasciencecluster.opendatahub.io/autopilot
+
+Package autopilot provides utility functions to config Autopilot as part of the stack
+which enhances monitoring of GPUs infrastructure.
+
+
+
+#### Autopilot
+
+
+
+Autopilot struct holds the configuration for the Autopilot component.
+
+
+
+_Appears in:_
+- [Components](#components)
+
+| Field | Description | Default | Validation |
+| --- | --- | --- | --- |
+| `Component` _[Component](#component)_ |  |  |  |
+
 
 ## datasciencecluster.opendatahub.io/trustyai
 
@@ -405,6 +428,7 @@ _Appears in:_
 | `trustyai` _[TrustyAI](#trustyai)_ | TrustyAI component configuration. |  |  |
 | `modelregistry` _[ModelRegistry](#modelregistry)_ | ModelRegistry component configuration. |  |  |
 | `trainingoperator` _[TrainingOperator](#trainingoperator)_ | Training Operator component configuration. |  |  |
+| `autopilot` _[Autopilot](#autopilot)_ | Autopilot component configuration. |  |  |
 
 
 #### ControlPlaneSpec

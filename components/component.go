@@ -135,6 +135,8 @@ func (c *Component) UpdatePrometheusConfig(_ client.Client, enable bool, compone
 			KueueARules            string `yaml:"kueue-alerting.rules"`
 			TrainingOperatorRRules string `yaml:"trainingoperator-recording.rules"`
 			TrainingOperatorARules string `yaml:"trainingoperator-alerting.rules"`
+			AutopilotRRules        string `yaml:"autopilot-recording.rules"`
+			AutopilotRARules       string `yaml:"autopilot-alerting.rules"`
 		} `yaml:"data"`
 	}
 	var configMap ConfigMap

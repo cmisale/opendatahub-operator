@@ -24,6 +24,7 @@ import (
 	dsciv1 "github.com/opendatahub-io/opendatahub-operator/v2/apis/dscinitialization/v1"
 	infrav1 "github.com/opendatahub-io/opendatahub-operator/v2/apis/infrastructure/v1"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components"
+	"github.com/opendatahub-io/opendatahub-operator/v2/components/autopilot"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components/codeflare"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components/dashboard"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components/datasciencepipelines"
@@ -161,6 +162,11 @@ func setupDSCInstance(name string) *dscv1.DataScienceCluster {
 					},
 				},
 				TrainingOperator: trainingoperator.TrainingOperator{
+					Component: components.Component{
+						ManagementState: operatorv1.Managed,
+					},
+				},
+				Autopilot: autopilot.Autopilot{
 					Component: components.Component{
 						ManagementState: operatorv1.Managed,
 					},

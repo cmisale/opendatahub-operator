@@ -25,6 +25,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/opendatahub-io/opendatahub-operator/v2/components"
+	"github.com/opendatahub-io/opendatahub-operator/v2/components/autopilot"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components/codeflare"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components/dashboard"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components/datasciencepipelines"
@@ -84,6 +85,9 @@ type Components struct {
 
 	//Training Operator component configuration.
 	TrainingOperator trainingoperator.TrainingOperator `json:"trainingoperator,omitempty"`
+
+	// Autopilot component configuration.
+	Autopilot autopilot.Autopilot `json:"autopilot,omitempty"`
 }
 
 // DataScienceClusterStatus defines the observed state of DataScienceCluster.

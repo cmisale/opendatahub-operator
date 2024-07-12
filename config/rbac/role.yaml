@@ -99,6 +99,12 @@ rules:
 - apiGroups:
   - apps
   resources:
+  - daemonsets
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resources:
   - deployments
   verbs:
   - '*'
