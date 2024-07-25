@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"time"
 
 	"github.com/hashicorp/go-multierror"
 	operatorv1 "github.com/openshift/api/operator/v1"
@@ -25,6 +26,7 @@ import (
 
 	dscv1 "github.com/opendatahub-io/opendatahub-operator/v2/apis/datasciencecluster/v1"
 	dsciv1 "github.com/opendatahub-io/opendatahub-operator/v2/apis/dscinitialization/v1"
+	featuresv1 "github.com/opendatahub-io/opendatahub-operator/v2/apis/features/v1"
 	infrav1 "github.com/opendatahub-io/opendatahub-operator/v2/apis/infrastructure/v1"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components"
 	"github.com/opendatahub-io/opendatahub-operator/v2/components/autopilot"
@@ -169,8 +171,9 @@ func CreateDefaultDSCI(ctx context.Context, cli client.Client, _ cluster.Platfor
 		return nil
 	case len(instances.Items) == 0:
 		fmt.Println("create default DSCI CR.")
+		time.Sleep(10 * time.Second)                             // put 10 seconds sleep for webhook to fully functional before request first creation
 		err := cluster.CreateWithRetry(ctx, cli, defaultDsci, 1) // 1 min timeout
-		if err != nil {
+		if err != nil && !k8serr.IsAlreadyExists(err) {
 			return err
 		}
 	}
@@ -257,6 +260,10 @@ func CleanupExistingResource(ctx context.Context, cli client.Client, platform cl
 
 	// Handling for dashboard OdhApplication Jupyterhub CR, see jira #443
 	multiErr = multierror.Append(multiErr, removOdhApplicationsCR(ctx, cli, gvk.OdhApplication, "jupyterhub", dscApplicationsNamespace))
+
+	// cleanup for github.com/opendatahub-io/pull/888
+	deprecatedFeatureTrackers := []string{dscApplicationsNamespace + "-kserve-temporary-fixes"}
+	multiErr = multierror.Append(multiErr, deleteDeprecatedResources(ctx, cli, dscApplicationsNamespace, deprecatedFeatureTrackers, &featuresv1.FeatureTrackerList{}))
 
 	// Handling for dashboard OdhDocument Jupyterhub CR, see jira #443 comments
 	odhDocJPH := getJPHOdhDocumentResources(
